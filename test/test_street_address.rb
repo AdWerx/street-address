@@ -12,6 +12,7 @@ class StreetAddressUsTest < Test::Unit::TestCase
     @addr6 = "2730 S Veitch St #207, Arlington, VA 22206"
     @addr7 = "W298N408 Kings Way Delafield, WI 53188"
     @addr8 = "N4785 19th Avenue, Montello, WI 53949"
+    @addr9 = 'Lot 55w & 56w Long Rifle Rd, Sevierville, TN 37862'
 
     @int1 = "Hollywood & Vine, Los Angeles, CA"
     @int2 = "Hollywood Blvd and Vine St, Los Angeles, CA"
@@ -138,6 +139,17 @@ class StreetAddressUsTest < Test::Unit::TestCase
     assert_equal addr.city, 'Montello'
     assert_equal addr.state, 'WI'
     assert_equal addr.postal_code, '53949'
+
+    # not a perfect parse, but this asserts not getting wrong data or an error
+    addr = StreetAddress::US.parse(@addr9)
+    assert_equal addr.line1, ''
+    assert_equal addr.number, nil
+    assert_equal addr.street, nil
+    assert_equal addr.street_type, nil
+    assert_equal addr.city, 'Sevierville'
+    assert_equal addr.state, 'TN'
+    assert_equal addr.postal_code, '37862'
+    assert_equal addr.intersection?, false
 
     addr = StreetAddress::US.parse(@int1)
     assert_equal addr.city, "Los Angeles"
