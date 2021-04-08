@@ -852,7 +852,7 @@ module StreetAddress
       end
 
       def intersection?
-        !street2.nil?
+        !!street && !!street2
       end
 
       def line1(s = "")
@@ -867,7 +867,7 @@ module StreetAddress
           s += " " + street_type2 unless street_type2.nil?
           s += " " + suffix2 unless suffix2.nil?
         else
-          s += number
+          s += number unless number.nil?
           s += " " + prefix unless prefix.nil?
           s += " " + street unless street.nil?
           s += " " + street_type unless street_type.nil?
@@ -880,7 +880,7 @@ module StreetAddress
           s += " " + suffix unless suffix.nil?
         end
 
-        return s
+        s.strip
       end
 
       def to_s(format = :default)
