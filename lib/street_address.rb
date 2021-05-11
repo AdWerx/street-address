@@ -916,6 +916,12 @@ module StreetAddress
   end
 
   class NonUS < US
+    def initialize(args)
+      args.keys.each do |attrib|
+        self.send("#{attrib}=", args[attrib])
+      end
+      return
+    end
   end
 end
 
