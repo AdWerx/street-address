@@ -914,4 +914,8 @@ module StreetAddress
       end
     end
   end
+
+  class NonUS < US
+  end
 end
+
